@@ -1,32 +1,19 @@
-const { performance } = require('perf_hooks');
+import { validateParams, showValueAndTimeByIndex } from './helpers/fibonacciHelper';
 
-function fibonacci(req, res) {
-  var startTime = performance.now();
+const fibonacci = async (req, res) => {
+  var index = req.body.index;
+  var maxLength = req.body.max;
 
-  var params = req.body;
-  var index = params.index ? params.index : 0;
-  var value = showNumberByIndex(index);
+  if (validateParams(index, maxLength)) return res.status(422).send(
+            { error: 'index param must be an integer >= 0 && <= 100 and max param integer >= 2 && <=100 and index <= max' });
 
-  var endTime = performance.now();
-  var totalTime = endTime - startTime;
-  res.status(200).send({ value, time: `${totalTime} milliseconds.` });
+  index = parseInt(index);
+  var getData = await showValueAndTimeByIndex(index, maxLength);
+  var value = getData.value;
+  var time = getData.time;
+
+  res.status(200).send({ value, time: `${time} milliseconds.` });
 }
-
-function fibonnaciArray() {
-  var a = 0, b = 1, f = 1, array = [0, 1];
-  for(var i = 2; i <= 12; i++) {
-      f = a + b;
-      a = b;
-      b = f;
-      array.push(f);
-  }
-  return array;
-}
-
-function showNumberByIndex(index) {
-  return fibonnaciArray()[index];
-}
-
 
 module.exports = {
   fibonacci
