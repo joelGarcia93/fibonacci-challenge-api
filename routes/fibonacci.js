@@ -1,7 +1,7 @@
-var express = require('express');
-var api = express.Router();
+import express from 'express';
+import fibonacciController from '../controllers/fibonacciController';
 
-const fibonacciController = require('../controllers/fibonacciController');
+var api = express.Router();
 
 api.post('/fib', fibonacciController.fibonacci);
 module.exports = api;
