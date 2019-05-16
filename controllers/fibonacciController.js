@@ -8,6 +8,7 @@ const fibonacci = async (req, res) => {
             { error: 'index param must be an integer >= 0 && <= 100 and max param integer >= 2 && <=100 and index <= max' });
 
   index = parseInt(index);
+  maxLength = parseInt(maxLength);
   var getData = await showValueAndTimeByIndex(index, maxLength);
   var value = getData.value;
   var time = getData.time;
