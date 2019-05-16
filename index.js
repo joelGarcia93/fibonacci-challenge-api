@@ -1,7 +1,7 @@
-var app = require('./app');
+import app from './app';
 
 const port = 3800;
 
 app.listen(port, () => {
-  console.log("Servidor corriendo en puerto 3800");
+  console.log("Server running on port 3800");
 });
